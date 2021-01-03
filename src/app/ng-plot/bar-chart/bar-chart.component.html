@@ -1,3 +1,22 @@
 <main [style.width]="width" [style.height]="height" [style.padding]="padding" [style.background-color]="backgroundColor">
-    <p>dummy</p>
+    <section>
+        <ng-container *ngFor="let serie of series; let j = index">
+            <div *ngFor="let row of data; let i = index;"
+                [style.width]="_barsWidth + 'px'"
+                [style.background-color]="colors[i]"
+                [style.height]="_barsHeightMap[i][j]"
+                [style.margin-right]="i == colors.length - 1 ? ( j == series.length - 1 ? '0' : _seriesGap + 'px') : _barsGap + 'px'"
+            ></div>
+        </ng-container>
+    </section>
+
+    <footer>
+        <ng-container *ngFor="let serie of series">
+            <p [style.width]="((_barsWidth * data.length) + (_barsGap * (data.length - 1))) + 'px'">{{ serie }}</p>
+        </ng-container>
+    </footer>
 </main>
+
+<!--
+     [style.margin-right]="j == series.length - 1 ? '0' : ((3*(data.length - 1)) + 10 + 'px')"
+-->

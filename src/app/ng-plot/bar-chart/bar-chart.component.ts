@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-type BarChartMode = "vertical" | "horizontal";
-type PrecisionValue = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+import { MathService } from '../services/math.service';
+import { BarChartMode, PrecisionValue } from '../shared/types';
 
 @Component({
     selector: 'ng-plot-bar',
@@ -13,10 +12,10 @@ export class BarChartComponent implements OnInit {
 
     /** The color of the chart series. Each color index corresponds to the same index of that series. */
     @Input()
-    color: string[] = [];
+    colors: string[] = [];
     /** The chart series. */
     @Input()
-    series: any[][] = [];
+    series: any[] = [];
     /** The data corresponding to each series. Each data index corresponds to the same index of that series. */
     @Input()
     data: number[][] = [];
@@ -46,7 +45,7 @@ export class BarChartComponent implements OnInit {
     step: number = 1;
 
     /** The height of the chart. By default the chart is plotted with enough height to fit the content. */
-    height: string = "fit-content";
+    height: string = "400px";
     /** The width of the chart. By default the chart is plotted with enough width to fit the content. */
     width: string = "fit-content";
     /** The padding of the chart container. 
@@ -70,13 +69,24 @@ export class BarChartComponent implements OnInit {
     scalePrecision: BehaviorSubject<PrecisionValue> = new BehaviorSubject<PrecisionValue>(2);
     /** The Y axis scale values. */
     _yAxisScale: number[];
+    /** The height percentage of each bar corresponding to it's value in the dataset. */
+    _barsHeightMap: string[][];
+    /** The width of the chart bars, in pixels. The default value is `50`. */
+    _barsWidth: number = 50;
+    /** The gap between each bar for a single series, in pixels. The default value is `3`. */
+    _barsGap: number = 3;
+    /** The gap between each set of bars corresponding to a series, in pixels. The default value is `10` */
+    _seriesGap: number = 10;
 
-    constructor() { }
+    constructor(
+        private mathService: MathService,
+    ) { }
 
     ngOnInit(): void {
         this.scalePrecision.asObservable().subscribe(newValue => {
             this._yAxisScale = this.__getYAxisScale__(this.data);
-            console.log(this._yAxisScale);
+            this._barsHeightMap = this.__getBarsHeightMap__(this.data);
+            console.log(this._barsHeightMap);
         });
     }
 
@@ -144,5 +154,33 @@ export class BarChartComponent implements OnInit {
         }
 
         return scaleValues;
+    }
+
+    /**
+     * Maps a numeric value of the dataset to a percentage value relative to the max or min value (respectively) of the whole dataset.
+     * @param value the value
+     */
+    private __mapValueToPercentageHeight__(value: number): string {
+        return `${(this.mathService.getRelativePercentage(value, value >= 0 ? this._yAxisScale[this._yAxisScale.length - 1] : this._yAxisScale[0]) * 100).toFixed(0)}%`;
+    };
+
+    /**
+     * Returns the bars height map.
+     * @param data the dataset
+     */
+    private __getBarsHeightMap__(data: number[][]): string[][] {
+        let barsHeightMap: string[][] = [];
+
+        for (let i = 0 ; i < this.data.length ; i++) {
+            let rowValues: string[] = [];
+
+            for (let j = 0 ; j < this.data[i].length ; j++) {
+                rowValues.push(this.__mapValueToPercentageHeight__(this.data[i][j]));
+            }
+
+            barsHeightMap.push(rowValues);
+        }
+
+        return barsHeightMap;
     }
 }
