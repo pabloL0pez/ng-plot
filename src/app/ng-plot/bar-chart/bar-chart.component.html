@@ -10,6 +10,7 @@
                         [style.width]="barsWidth"
                         [style.background-color]="colors[i]"
                         [style.height]="_barsHeightMap[i][j]"
+                        [style.margin-right]="i == data.length - 1 ? '0' : barsGap + 'px'"
                     ></div>
                 </div>
                 <p style="width: 100%;">
@@ -20,11 +21,16 @@
     </section>
 
     <aside>
-        <p>asd</p>
+        <p 
+            *ngFor="let value of _yAxisScale; let i = index;"
+            [style.height]="i == 0 ? 'fit-content' : _yAxisHeightMap[i]"
+        >
+            {{ value }}
+        </p>
     </aside>
 </main>
 <!--
-                        [style.margin-right]="i == data.length - 1 ? ( j == series.length - 1 ? '0' : seriesGap + 'px') : barsGap + 'px'"
+                        
                     [style.margin-right]="j == series.length - 1 ? '0' : (seriesGap + ((data.length - 1) * barsGap)) + 'px'"
 
 -->

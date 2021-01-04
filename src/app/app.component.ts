@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     colors: string[];
 
     constructor() {
-        this.testData = [[1, 5, 3, 2, 4, 2], [1.4, 2.3, 3.1, 4.8, 3, 7]];
+        this.testData = [[1, 2, 3, 4, 5, 6], [1.4, 2.3, 3.1, 4.8, 3, 7]];
         this.series = ["Sol", "Luna", "Tierra", "Alpha", "Beta", "Gamma"];
         this.colors = ["#ef9a9a", "#64b5f6"];
     }
@@ -29,5 +29,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.barChart.width = "100%";
         this.barChart.height = "700px";
         this.barChart.barsWidth = "100%";
+        this.barChart.seriesGap = 25;
     }
 }

@@ -42,8 +42,26 @@ main {
             }
         }
     }
+
+    aside {
+        position: relative;
+        width: 70px;
+        height: 100%;
+
+        p {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 0;
+            margin-bottom: calc(0.7rem + 18px);
+        }
+    }
 }
 
 .bar {
     border-radius: 3px;
+}
+
+p {
+    font-size: 18px;
 }

@@ -57,9 +57,9 @@ export class BarChartComponent implements OnInit {
      * - `10px 15px`
      * - `1rem 0rem 2rem 0rem`
      * 
-     * `10px` of padding is used on all sides by default.
+     * `25px 10px 10px 10px` of padding is used by default.
     */
-    padding: string = "10px";
+    padding: string = "50px 10px 10px 10px";
     /** The background color of the chart. The color `#eceff1` is used by default */
     backgroundColor: string = "#eceff1";
     /** 
@@ -70,16 +70,20 @@ export class BarChartComponent implements OnInit {
     scalePrecision: BehaviorSubject<PrecisionValue> = new BehaviorSubject<PrecisionValue>(2);
     /** The width of the chart bars, in pixels. The default value is `50`. */
     barsWidth: string = "50px";
-    /** The gap between each bar for a single series, in pixels. The default value is `3`. */
+    /** 
+     * The gap between each bar for a single series, in pixels. The default value is `3`.
+     */
     barsGap: number = 3;
     /** The gap between each set of bars corresponding to a series, in pixels. The default value is `10` */
     seriesGap: number = 10;
 
-    
+
     /** The Y axis scale values. */
     _yAxisScale: number[];
     /** The height percentage of each bar corresponding to it's value in the dataset. */
     _barsHeightMap: string[][];
+    /** The height percentage of each Y axis label corresponding to it's value in the dataset. */
+    _yAxisHeightMap: string[];
 
 
     constructor(
@@ -90,6 +94,7 @@ export class BarChartComponent implements OnInit {
         this.scalePrecision.asObservable().subscribe(newValue => {
             this._yAxisScale = this.__getYAxisScale__(this.data);
             this._barsHeightMap = this.__getBarsHeightMap__(this.data);
+            this._yAxisHeightMap = this.__getYAxisHeightMap__(this._yAxisScale);
             console.log(this._barsHeightMap);
         });
     }
@@ -186,5 +191,15 @@ export class BarChartComponent implements OnInit {
         }
 
         return barsHeightMap;
+    }
+
+    private __getYAxisHeightMap__(scale: number[]): string[] {
+        let yAxisHeightMap: string[] = [];
+
+        for (let value of scale) {
+            yAxisHeightMap.push(this.__mapValueToPercentageHeight__(value));
+        }
+
+        return yAxisHeightMap
     }
 }
