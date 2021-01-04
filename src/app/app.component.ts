@@ -16,8 +16,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     colors: string[];
 
     constructor() {
-        this.testData = [[1, 5, 3, 2, 4], [1.4, 2.3, 3.1, 4.8, 20]];
-        this.series = ["Sol", "Luna", "Tierra", "Alpha", "Beta"];
+        this.testData = [[1, 5, 3, 2, 4, 2], [1.4, 2.3, 3.1, 4.8, 3, 7]];
+        this.series = ["Sol", "Luna", "Tierra", "Alpha", "Beta", "Gamma"];
         this.colors = ["#ef9a9a", "#64b5f6"];
     }
 
@@ -26,5 +26,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.barChart.scalePrecision.next(1);
+        this.barChart.width = "100%";
+        this.barChart.height = "700px";
+        this.barChart.barsWidth = "100%";
     }
 }

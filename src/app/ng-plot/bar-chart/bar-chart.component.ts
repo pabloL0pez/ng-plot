@@ -44,6 +44,7 @@ export class BarChartComponent implements OnInit {
     @Input()
     step: number = 1;
 
+
     /** The height of the chart. By default the chart is plotted with enough height to fit the content. */
     height: string = "400px";
     /** The width of the chart. By default the chart is plotted with enough width to fit the content. */
@@ -67,16 +68,19 @@ export class BarChartComponent implements OnInit {
      * The default value is `2`.
      */
     scalePrecision: BehaviorSubject<PrecisionValue> = new BehaviorSubject<PrecisionValue>(2);
+    /** The width of the chart bars, in pixels. The default value is `50`. */
+    barsWidth: string = "50px";
+    /** The gap between each bar for a single series, in pixels. The default value is `3`. */
+    barsGap: number = 3;
+    /** The gap between each set of bars corresponding to a series, in pixels. The default value is `10` */
+    seriesGap: number = 10;
+
+    
     /** The Y axis scale values. */
     _yAxisScale: number[];
     /** The height percentage of each bar corresponding to it's value in the dataset. */
     _barsHeightMap: string[][];
-    /** The width of the chart bars, in pixels. The default value is `50`. */
-    _barsWidth: number = 50;
-    /** The gap between each bar for a single series, in pixels. The default value is `3`. */
-    _barsGap: number = 3;
-    /** The gap between each set of bars corresponding to a series, in pixels. The default value is `10` */
-    _seriesGap: number = 10;
+
 
     constructor(
         private mathService: MathService,
