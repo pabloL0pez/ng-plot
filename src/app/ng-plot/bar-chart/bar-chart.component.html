@@ -1,4 +1,9 @@
-<main [style.width]="width" [style.height]="height" [style.padding]="padding" [style.background-color]="backgroundColor">
+<main 
+    [style.width]="width"
+    [style.height]="height"
+    [style.padding]="padding"
+    [style.background-color]="backgroundColor"
+>
     <header>
         <h1
             [style.font-size]="titleFontSize"
@@ -26,35 +31,35 @@
                     [style.font-size]="seriesFontSize"
                     [style.line-height]="seriesFontSize"
                     [style.top]="'calc(-' + seriesFontSize + '* 1.5)'"
+                    [style.color]="seriesLabelsColor"
                 >
-                    {{ value }}
+                    {{ useNumberTrimming ? (value | numbertrim) : value }}
                 </p>
             </div>
         </div>
         <ng-container *ngFor="let serie of series; let j = index">
             <div class="series-container">
                 <div class="bars-container">
-
-                    <div class="bar" *ngFor="let row of data; let i = index;"
+                    <div class="bar" 
+                        *ngFor="let row of data; let i = index;"
                         [style.width]="barsWidth"
-                        [style.background-color]="colors[i]"
+                        [style.background-color]="_hoverMap.i == i && _hoverMap.j == j ? hoverColors[i] : colors[i]"
                         [style.height]="_barsHeightMap[i][j]"
                         [style.margin-right]="i == data.length - 1 ? '0' : barsGap + 'px'"
+                        [style.opacity]="seriesOpacity[i] ? seriesOpacity[i] : '0.8'"
+                        (mouseover)="_hoverMap.i = i; _hoverMap.j = j;"
+                        (mouseleave)="_hoverMap.i = -1; _hoverMap.j = -1;"
                     ></div>
                 </div>
                 <p 
                     style="width: 100%;"
                     [style.font-size]="seriesFontSize"
                     [style.line-height]="seriesFontSize"
+                    [style.color]="seriesLabelsColor"
                 >
-                    {{ serie }}
+                    {{ serie | uppercase }}
                 </p>
             </div>
         </ng-container>
     </section>
 </main>
-<!--
-                        
-                    [style.margin-right]="j == series.length - 1 ? '0' : (seriesGap + ((data.length - 1) * barsGap)) + 'px'"
-
--->

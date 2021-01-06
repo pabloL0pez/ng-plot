@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { NumberTrimPipe } from '../pipes/number-trim.pipe';
 import { MathService } from '../services/math.service';
-import { BarChartMode, PrecisionValue, TitleAlignment } from '../shared/types';
+import { BarChartMode, HoverMap, PrecisionValue, TitleAlignment } from '../shared/types';
 
 @Component({
     selector: 'ng-plot-bar',
@@ -17,6 +18,16 @@ export class BarChartComponent implements OnInit {
     /** The color of the chart series. Each color index corresponds to the same index of that series. */
     @Input()
     colors: string[] = [];
+    /** The color of the chart series, when hovered. Each color index corresponds to the same index of that series. */
+    @Input()
+    hoverColors: string[] = [];
+    /**
+     * The opacity of the bar series. Each level of opacity index corresponds to the same index of that series.
+     * 
+     * The value `0.8` is used by default on all series.
+     */
+    @Input()
+    seriesOpacity: number[] = [];
     /** The chart series. */
     @Input()
     series: any[] = [];
@@ -28,7 +39,7 @@ export class BarChartComponent implements OnInit {
     labels: string[][] = [];
     /** The color of the chart grid. The color `#757575` is used by default. */
     @Input()
-    gridColor: string = "#757575";
+    gridColor: string = "#b0bec5";
     /** Indicates if the bars should be plotted horizontally or vertically. */
     @Input()
     mode: BarChartMode;
@@ -53,6 +64,17 @@ export class BarChartComponent implements OnInit {
     /** The width of the chart. By default the chart is plotted with enough width to fit the content. */
     @Input()
     width: string = "fit-content";
+    /** Indicates if number trimming should be used for big numbers. For example:
+     * 
+     * - `1.000` becomes `1K`
+     * - `250.000` becomes `250K`
+     * - `1.000.000` becomes `1M`
+     * - `1.000.000.000` becomes `1B`
+     * 
+     * By default, this property is set to `true`.
+     */
+    @Input()
+    useNumberTrimming: boolean = true;
 
 
     /** The padding of the chart container. 
@@ -63,11 +85,13 @@ export class BarChartComponent implements OnInit {
      * - `10px 15px`
      * - `1rem 0rem 2rem 0rem`
      * 
-     * `25px 10px 10px 10px` of padding is used by default.
+     * `25px 100px 10px 25px` of padding is used by default.
     */
     padding: string = "25px 100px 10px 25px";
-    /** The background color of the chart. The color `#eceff1` is used by default */
+    /** The background color of the chart. The color `#eceff1` is used by default. */
     backgroundColor: string = "#eceff1";
+    /** The color of the series and the Y axis labels. The color `#616161` is used by default. */
+    seriesLabelsColor: string = "#616161"
     /** 
      * The precision value to be used in the Y axis scale values, up to a precision value of `10`.
      * 
@@ -96,10 +120,15 @@ export class BarChartComponent implements OnInit {
     _barsHeightMap: string[][];
     /** The height percentage of each Y axis label corresponding to it's value in the dataset. */
     _yAxisHeightMap: string[];
-
+    /** Indicates which data record is beign hovered on. */
+    _hoverMap: HoverMap = {
+        i: -1,
+        j: -1,
+    };
 
     constructor(
         private mathService: MathService,
+        private numberTrimPipe: NumberTrimPipe,
     ) { }
 
     ngOnInit(): void {

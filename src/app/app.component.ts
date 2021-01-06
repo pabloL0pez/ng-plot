@@ -11,11 +11,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     @ViewChild("barChart", { static: true })
     barChart: BarChartComponent;
 
+    title: string;
     series: string[];
     testData: number[][];
     colors: string[];
+    hoverColors: string[];
+    opacity: number[];
 
     constructor() {
+        this.title = "Some bar chart";
         this.testData = [
             [15000, 50000, 100000, 150000, 200000, 250000, 300000, 250000],
             [25000, 60000, 300000, 250000, 100000, 150000, 200000, 450000],
@@ -23,6 +27,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         ];
         this.series = ["Sol", "Luna", "Tierra", "Alpha", "Beta", "Gamma", "Satélite", "Galaxia"];
         this.colors = ["#ef9a9a", "#4caf50", "#2196f3"];
+        this.hoverColors = ["#fdd835", "#fdd835", "#fdd835"],
+        this.opacity = [1, 0.5];
     }
 
     ngOnInit(): void {
