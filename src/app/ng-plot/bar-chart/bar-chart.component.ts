@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MathService } from '../services/math.service';
-import { BarChartMode, PrecisionValue } from '../shared/types';
+import { BarChartMode, PrecisionValue, TitleAlignment } from '../shared/types';
 
 @Component({
     selector: 'ng-plot-bar',
@@ -11,6 +11,9 @@ import { BarChartMode, PrecisionValue } from '../shared/types';
 })
 export class BarChartComponent implements OnInit {
 
+    /** The title of the chart */
+    @Input()
+    title: string = "Bar chart";
     /** The color of the chart series. Each color index corresponds to the same index of that series. */
     @Input()
     colors: string[] = [];
@@ -62,7 +65,7 @@ export class BarChartComponent implements OnInit {
      * 
      * `25px 10px 10px 10px` of padding is used by default.
     */
-    padding: string = "50px 100px 10px 25px";
+    padding: string = "25px 100px 10px 25px";
     /** The background color of the chart. The color `#eceff1` is used by default */
     backgroundColor: string = "#eceff1";
     /** 
@@ -81,6 +84,10 @@ export class BarChartComponent implements OnInit {
     seriesGap: number = 10;
     /** The font size of the series labels. The default value is `18px` */
     seriesFontSize: string = "18px";
+    /** The font size of the chart title. The default value is `36px` */
+    titleFontSize: string = "36px";
+    /** The alignment of the chart title. The default value is `left` */
+    titleAlignment: TitleAlignment = "left";
 
 
     /** The Y axis scale values. */

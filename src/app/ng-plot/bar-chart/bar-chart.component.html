@@ -1,4 +1,13 @@
 <main [style.width]="width" [style.height]="height" [style.padding]="padding" [style.background-color]="backgroundColor">
+    <header>
+        <h1
+            [style.font-size]="titleFontSize"
+            [style.text-align]="titleAlignment"
+        >
+            {{ title }}
+        </h1>
+    </header>
+
     <section
         [style.grid-template-columns]="'repeat('+ series.length + ',' + '1fr)'"
         [style.gap]="seriesGap + 'px'"

@@ -4,12 +4,21 @@ main {
     position: relative;
 
     display: flex;
-    flex-direction: row;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
 
     background-color: antiquewhite;
     box-sizing: border-box;
+
+    header {
+        h1 {
+            margin: 0;
+        }
+
+        width: 100%;
+        margin-bottom: 3rem;
+    }
 
     section {
         position: relative;
