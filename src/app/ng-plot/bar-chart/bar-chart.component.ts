@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MathService } from '../services/math.service';
 import { BarChartMode, PrecisionValue } from '../shared/types';
@@ -6,7 +6,8 @@ import { BarChartMode, PrecisionValue } from '../shared/types';
 @Component({
     selector: 'ng-plot-bar',
     templateUrl: './bar-chart.component.html',
-    styleUrls: ['./bar-chart.component.scss']
+    styleUrls: ['./bar-chart.component.scss'],
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarChartComponent implements OnInit {
 
@@ -22,9 +23,9 @@ export class BarChartComponent implements OnInit {
     /** The labels for each series. Each label index corresponds to the same index of that series. */
     @Input()
     labels: string[][] = [];
-    /** The color of the chart grid. The color `#78909c` is used by default. */
+    /** The color of the chart grid. The color `#757575` is used by default. */
     @Input()
-    gridColor: string;
+    gridColor: string = "#757575";
     /** Indicates if the bars should be plotted horizontally or vertically. */
     @Input()
     mode: BarChartMode;
@@ -43,12 +44,14 @@ export class BarChartComponent implements OnInit {
      */
     @Input()
     step: number = 1;
-
-
     /** The height of the chart. By default the chart is plotted with enough height to fit the content. */
+    @Input()
     height: string = "400px";
     /** The width of the chart. By default the chart is plotted with enough width to fit the content. */
+    @Input()
     width: string = "fit-content";
+
+
     /** The padding of the chart container. 
      * 
      * Any CSS unit can be used. For example:
@@ -59,7 +62,7 @@ export class BarChartComponent implements OnInit {
      * 
      * `25px 10px 10px 10px` of padding is used by default.
     */
-    padding: string = "50px 10px 10px 10px";
+    padding: string = "50px 100px 10px 25px";
     /** The background color of the chart. The color `#eceff1` is used by default */
     backgroundColor: string = "#eceff1";
     /** 
@@ -76,6 +79,8 @@ export class BarChartComponent implements OnInit {
     barsGap: number = 3;
     /** The gap between each set of bars corresponding to a series, in pixels. The default value is `10` */
     seriesGap: number = 10;
+    /** The font size of the series labels. The default value is `18px` */
+    seriesFontSize: string = "18px";
 
 
     /** The Y axis scale values. */
@@ -96,6 +101,7 @@ export class BarChartComponent implements OnInit {
             this._barsHeightMap = this.__getBarsHeightMap__(this.data);
             this._yAxisHeightMap = this.__getYAxisHeightMap__(this._yAxisScale);
             console.log(this._barsHeightMap);
+            console.log(this._yAxisHeightMap);
         });
     }
 

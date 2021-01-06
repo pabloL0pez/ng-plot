@@ -3,9 +3,29 @@
         [style.grid-template-columns]="'repeat('+ series.length + ',' + '1fr)'"
         [style.gap]="seriesGap + 'px'"
     >
+        <div 
+            class="grid"
+            [style.height]="'calc(100% - (0.7rem + ' + seriesFontSize + '))'"
+            [style.bottom]="'calc(0.7rem + ' + seriesFontSize + ')'"
+        >
+            <div class="line"
+                *ngFor="let value of _yAxisScale; let i = index;"
+                [style.height]="_yAxisHeightMap[i]"
+                [style.border-color]="gridColor"
+            >
+                <p
+                    [style.font-size]="seriesFontSize"
+                    [style.line-height]="seriesFontSize"
+                    [style.top]="'calc(-' + seriesFontSize + '* 1.5)'"
+                >
+                    {{ value }}
+                </p>
+            </div>
+        </div>
         <ng-container *ngFor="let serie of series; let j = index">
             <div class="series-container">
                 <div class="bars-container">
+
                     <div class="bar" *ngFor="let row of data; let i = index;"
                         [style.width]="barsWidth"
                         [style.background-color]="colors[i]"
@@ -13,21 +33,16 @@
                         [style.margin-right]="i == data.length - 1 ? '0' : barsGap + 'px'"
                     ></div>
                 </div>
-                <p style="width: 100%;">
+                <p 
+                    style="width: 100%;"
+                    [style.font-size]="seriesFontSize"
+                    [style.line-height]="seriesFontSize"
+                >
                     {{ serie }}
                 </p>
             </div>
         </ng-container>
     </section>
-
-    <aside>
-        <p 
-            *ngFor="let value of _yAxisScale; let i = index;"
-            [style.height]="i == 0 ? 'fit-content' : _yAxisHeightMap[i]"
-        >
-            {{ value }}
-        </p>
-    </aside>
 </main>
 <!--
                         

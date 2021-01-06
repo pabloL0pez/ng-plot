@@ -1,4 +1,8 @@
+$axis-legend-width: "75px";
+
 main {
+    position: relative;
+
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -8,60 +12,74 @@ main {
     box-sizing: border-box;
 
     section {
+        position: relative;
+
         width: 100%;
         height: 100%;
 
         display: grid;
         grid-template-rows: 1fr;
-
-        .series-container {
-            height: 100%;
-            width: 100%;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            p {
-                text-align: center;
-                margin-top: 0.7rem;
-                margin-bottom: 0;
-                padding: 0;
-                color: #616161;
-            }
-
-            .bars-container {
-                height: 100%;
-                width: 100%;
-    
-                display: flex;
-                flex-direction: row;
-                align-items: flex-end;
-                justify-content: center;
-            }
-        }
     }
+}
 
-    aside {
-        position: relative;
-        width: 70px;
-        height: 100%;
+
+.grid {
+    width: calc(100% + #{$axis-legend-width});
+
+    position: absolute;
+    background-color: transparent;
+
+    .line {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-top: solid 1px;
+        background-color: transparent;
+        z-index: 10;
 
         p {
             position: absolute;
-            bottom: 0;
             right: 0;
-            margin: 0;
-            margin-bottom: calc(0.7rem + 18px);
         }
     }
 }
 
-.bar {
-    border-radius: 3px;
+
+.series-container {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        text-align: center;
+        margin-top: 0.7rem;
+        margin-bottom: 0;
+        padding: 0;
+        color: #616161;
+    }
+
+    .bars-container {
+        position: relative;
+
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: center;
+
+        .bar {
+            border-radius: 3px;
+        }        
+    }
 }
 
 p {
-    font-size: 18px;
+    margin-block: 0;
 }
