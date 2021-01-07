@@ -8,7 +8,6 @@ import { BarChartMode, HoverMap, PrecisionValue, TitleAlignment } from '../share
     selector: 'ng-plot-bar',
     templateUrl: './bar-chart.component.html',
     styleUrls: ['./bar-chart.component.scss'],
-    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarChartComponent implements OnInit {
 
@@ -70,8 +69,10 @@ export class BarChartComponent implements OnInit {
      * - `250.000` becomes `250K`
      * - `1.000.000` becomes `1M`
      * - `1.000.000.000` becomes `1B`
-     * 
+     *
      * By default, this property is set to `true`.
+     * 
+     * Using this property for numbers bigger than `99999` is recommended.
      */
     @Input()
     useNumberTrimming: boolean = true;

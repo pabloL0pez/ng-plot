@@ -30,7 +30,7 @@ export class NumberTrimPipe implements PipeTransform {
         }
 
         if (dividedCount >= 0) {
-            return dividedValue.toFixed(1) + INITIALS_MAP[dividedCount];
+            return `${dividedValue.toFixed(1)} ${INITIALS_MAP[dividedCount]}`;
         }
 
         return value.toString();
