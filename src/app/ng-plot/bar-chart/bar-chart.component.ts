@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { NumberTrimPipe } from '../pipes/number-trim.pipe';
-import { MathService } from '../services/math.service';
+import { NumberTrimPipe } from '../shared/pipes/number-trim.pipe';
+import { MathService } from '../shared/services/math.service';
 import { BarChartMode, HoverMap, PrecisionValue, TitleAlignment } from '../shared/types';
 
 @Component({
