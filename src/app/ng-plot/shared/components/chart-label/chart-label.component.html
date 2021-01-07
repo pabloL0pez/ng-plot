@@ -1,0 +1,22 @@
+<div 
+    class="label-container mat-elevation-2" 
+    [style.background-color]="backgroundColor"
+    [style]="'--border-color: ' + backgroundColor"
+>
+    <div 
+        class="label-content"
+    >
+        <p>
+            {{ series }}
+        </p>
+        <div class="label-data">
+            <div 
+                class="color-dot"
+                [style.background-color]="color"
+            ></div>
+            <p>
+                {{ label + ': ' + (data | numbertrim) }}
+            </p>
+        </div>
+    </div>
+</div>

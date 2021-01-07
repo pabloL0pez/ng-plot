@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     colors: string[];
     hoverColors: string[];
     opacity: number[];
+    labels: string[];
 
     constructor() {
         this.title = "Some bar chart";
@@ -27,8 +28,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         ];
         this.series = ["Sol", "Luna", "Tierra", "Alpha", "Beta", "Gamma", "Satélite", "Galaxia"];
         this.colors = ["#ef9a9a", "#4caf50", "#2196f3"];
-        this.hoverColors = ["#fdd835", "#fdd835", "#fdd835"],
-        this.opacity = [1, 0.5];
+        this.hoverColors = ["#fdd835", "#fdd835", "#fdd835"];
+        this.labels = ["Group 1", "Group 2", "Group 3"];
     }
 
     ngOnInit(): void {

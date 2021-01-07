@@ -27,15 +27,23 @@ export class BarChartComponent implements OnInit {
      */
     @Input()
     seriesOpacity: number[] = [];
-    /** The chart series. */
-    @Input()
-    series: any[] = [];
     /** The data corresponding to each series. Each data index corresponds to the same index of that series. */
     @Input()
     data: number[][] = [];
+
+
+    // TODO: Refactor name. This should be called "labels", and "labels" should be called "series"
+    /** The chart series. */
+    @Input()
+    series: any[] = [];
+
+
+    // TODO: Refactor name. This should be called "series", and "series" should be called "labels"
     /** The labels for each series. Each label index corresponds to the same index of that series. */
     @Input()
     labels: string[][] = [];
+
+
     /** The color of the chart grid. The color `#757575` is used by default. */
     @Input()
     gridColor: string = "#b0bec5";
@@ -91,8 +99,8 @@ export class BarChartComponent implements OnInit {
     padding: string = "25px 100px 10px 25px";
     /** The background color of the chart. The color `#eceff1` is used by default. */
     backgroundColor: string = "#eceff1";
-    /** The color of the series and the Y axis labels. The color `#616161` is used by default. */
-    seriesLabelsColor: string = "#616161"
+    /** The color of the series and the Y axis labels. The color `#546e7a` is used by default. */
+    seriesLabelsColor: string = "#546e7a"
     /** 
      * The precision value to be used in the Y axis scale values, up to a precision value of `10`.
      * 

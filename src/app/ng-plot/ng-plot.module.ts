@@ -3,21 +3,22 @@ import { NgModule } from "@angular/core";
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { NumberTrimPipe } from "./shared/pipes/number-trim.pipe";
 import { MathService } from "./shared/services/math.service";
+import { SharedModule } from "./shared/shared.module";
 
 const components = [
     BarChartComponent,
-    NumberTrimPipe,
 ];
 
 @NgModule({
     imports: [
         CommonModule,
+        SharedModule,
     ],
     declarations: components,
     providers: [
         MathService,
         NumberTrimPipe,
     ],
-    exports: [...components],
+    exports: components,
 })
 export class NgPlotModule {}
