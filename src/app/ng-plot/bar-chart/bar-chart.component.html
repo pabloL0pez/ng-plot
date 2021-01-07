@@ -44,7 +44,7 @@
                     <div class="bar" 
                         *ngFor="let row of data; let i = index;"
                         [style.width]="barsWidth"
-                        [style.background-color]="_hoverMap.i == i && _hoverMap.j == j ? hoverColors[i] : colors[i]"
+                        [style.background-color]="_hoverMap.i == i && _hoverMap.j == j && hoverColors && hoverColors[i] ? hoverColors[i] : colors[i]"
                         [style.height]="_barsHeightMap[i][j]"
                         [style.margin-right]="i == data.length - 1 ? '0' : barsGap + 'px'"
                         [style.opacity]="seriesOpacity && seriesOpacity[i] ? seriesOpacity[i] : '0.7'"
